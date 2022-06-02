@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../styles/main.css"
 
 /* 
   【Todoのデータ構成】
@@ -27,13 +28,17 @@ function Todo() {
     /* テストコード 終了 */
   ]);
 
+  
   return (
     <div className="panel">
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
       {items.map(item => (
-          <TodoItem key={item.key} item={item}></TodoItem>
+   
+         <TodoItem  key={item.key} item={item}></TodoItem>
+      
+         
       ))}
       <div className="panel-block">
         {items.length} items
