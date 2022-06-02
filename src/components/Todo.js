@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "../styles/main.css"
 
 /* 
@@ -29,7 +29,9 @@ function Todo() {
   ]);
 
   const [item,setItem]=useState({key:getKey(),text:"",done:false})
+  const [filterData,setFilterData]=useState([])
 
+  useEffect(()=>{filter()},[])
   const handleChange = (e) =>
     {
       let item = e.target.value;
@@ -43,6 +45,17 @@ function Todo() {
      
     }
     }
+  const filter = (type=null) =>
+    {
+      if(type===null)
+      {
+        setFilterData(items)
+      }else
+      {
+        let filterTemp = items.filter(item => item.done === type)
+        setFilterData(filterTemp)
+      }
+    }
   const handleClick = () =>
     {
       putItems([...items,item]);
@@ -51,18 +64,26 @@ function Todo() {
     <div className="panel">
        <div >
        <input type="text" onChange={handleChange} onKeyDown = {onKeyDown}/>
-    </div>
+      </div>
+
+      
       <div className="panel-heading">
         ITSS ToDoアプリ
       </div>
-      {items.map(item => (
+      <a onClick ={()=>filter()}>All</a> &nbsp;&nbsp;
+       <a onClick ={()=>filter(true)}>Completed</a>&nbsp;&nbsp;
+       <a onClick ={()=>filter(false)}>Uncompleted</a>
+      <div>
+        {filterData.map(item => (
    
          <TodoItem  key={item.key} item={item}></TodoItem>
       
          
       ))}
+      </div>
+      
       <div className="panel-block">
-        {items.length} items
+        {filterData.length} items
       </div>
      
      
